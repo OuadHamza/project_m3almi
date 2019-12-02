@@ -25,7 +25,7 @@ class _RegisterState extends State<Register> {
       appBar: AppBar(
         backgroundColor: Colors.red[400],
         elevation: 0.0,
-        title: Text('Sign up in to m3almi'),
+        title: Text('Sign up'),
         actions: <Widget>[
           FlatButton.icon(
             icon: Icon(Icons.person),
@@ -40,45 +40,80 @@ class _RegisterState extends State<Register> {
         padding: EdgeInsets.symmetric(vertical: 20.0 , horizontal: 60.0),
         child: Form(
           key: _formKey,
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: 20.0),
-              TextFormField(
-                validator: (val) => val.isEmpty ? ("Enter an Email")  : null,
-                onChanged: (val) {
-                  setState(() => email = val);
-                },
-              ),
-              SizedBox(height: 20.0),
-              TextFormField(
-                obscureText: true,
-                validator: (val) => val.length < 6 ? ("Enter an password 6+ characters long")  : null,
-                onChanged: (val) {
-                  setState(() => password = val);
-                },
-              ),
-              SizedBox(height: 20.0),
-              RaisedButton(
-                color: Colors.blue,
-                child: Text(
-                  'Register',
-                  style: TextStyle(color: Colors.white),
+          child: new SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                new Container(
+                  width: 80.0,
+                  height: 80.0,
+                  decoration: new BoxDecoration(
+                    image: new DecorationImage(
+                      fit: BoxFit.fill,
+                      image: new AssetImage('assets/logo_m3almi2.png')
+                    )
+                  )
                 ),
-                onPressed: () async {
-                  if (_formKey.currentState.validate()) {
-                    dynamic result = await _auth.registerWithEmailAndPssword(email, password);
-                    if (result == null) {
-                      setState(() => error = "email or password incorrect");
-                    }
-                  }
-                },
-              ),
-              SizedBox(height: 14.0,),
-              Text(
-                error,
-                style: TextStyle(color: Colors.white)
-              )
-            ],
+                SizedBox(height: 20.0),
+                TextFormField(
+                  validator: (val) => val.isEmpty ? ("Enter an Email")  : null,
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.email),
+                      labelText: 'Email',
+                      fillColor: Colors.grey,
+                      filled: true,
+                    ),
+                  onChanged: (val) {
+                    setState(() => email = val);
+                  },
+                ),
+                SizedBox(height: 20.0),
+                TextFormField(
+                  obscureText: true,
+                  validator: (val) => val.length < 6 ? ("Enter an password 6+ characters long")  : null,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.lock),
+                    labelText: 'Password',
+                    fillColor: Colors.grey,
+                    filled: true,
+                  ),
+                  onChanged: (val) {
+                    setState(() => password = val);
+                  },
+                ),
+                SizedBox(height: 20.0),
+                Material(
+                  borderRadius: BorderRadius.circular(30.0),
+                  //elevation: 5.0,
+                  child: MaterialButton(
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        dynamic result = await _auth.registerWithEmailAndPssword(email, password);
+                        if (result == null) {
+                          setState(() => error = "email or password incorrect");
+                        }
+                      }
+                    },
+                    minWidth: 150.0,
+                    height: 50.0,
+                    color: Color(0xFF179CDF),
+                    child: Text(
+                      "REGISTER",
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.white,
+                      ),
+                    ),
+
+                  ),
+                ),
+                SizedBox(height: 14.0,),
+                Text(
+                  error,
+                  style: TextStyle(color: Colors.white)
+                )
+              ],
+            ),
           ),
         ),
       ),
