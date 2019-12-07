@@ -1,177 +1,220 @@
 import 'package:auth/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleView;
-  SignIn({this.toggleView});
+  Register({this.toggleView});
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
+
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
-  final passKey = GlobalKey<FormFieldState>();
 
-  bool _userExist = false;
-  checkUserValue<bool>(String user) {
-    _doesEmailAlreadyExist(user).then((val){
-          if(val){
-            print ("UserName Already Exits");
-            _userExist = val;
-          }
-          else{
-            print ("UserName is Available");
-            _userExist = val;
-          }
-        });
-        return _userExist;
-      }
-    
-      // Text field state
-      String userName = "";
-      String email = "";
-      String phone = "";
-      String password = "";
-      String confirmPass = "";
-      String error = "";
-    
-      @override
-      Widget build(BuildContext context) {
-        return Scaffold(
-          backgroundColor: Colors.red[900],
-          appBar: AppBar(
-            backgroundColor: Colors.red[400],
-            elevation: 0.0,
-            title: Text('Sign in'),
-            actions: <Widget>[
-              FlatButton.icon(
-                icon: Icon(Icons.person),
-                label: Text('Register'),
-                onPressed: () {
-                  widget.toggleView();
-                },
-              )
-            ],
+  // Text field state
+  String email = "";
+  String password = "";
+  String error = "";
+  
+  @override
+   Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/loginBg.png"),
+          fit: BoxFit.cover,
+        )
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+              title: Text('Sign In'),
+              actions: <Widget>[
+                FlatButton.icon(
+                  icon: Icon(Icons.person),
+                  label: Text('Register'),
+                  onPressed: () {
+                    widget.toggleView();
+                  },
+                )
+              ],
+            ),
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.transparent,
           ),
-          body: Container(
-            padding: EdgeInsets.symmetric(vertical: 20.0 , horizontal: 60.0),
-            child: Form(
-              key: _formKey,
-              child: new SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    new Container(
-                      width: 80.0,
-                      height: 80.0,
-                      decoration: new BoxDecoration(
-                      //shape: BoxShape.circle,
-                        image: new DecorationImage(
-                          fit: BoxFit.fill,
-                          image: new AssetImage('assets/logo_m3almi2.png')
+          child: Padding(
+            padding: EdgeInsets.all(23),
+            child: ListView(
+              children: <Widget>[
+                //SizedBox(height: 200,),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      new Container(
+                        width: 80.0,
+                        height: 80.0,
+                        decoration: new BoxDecoration(
+                        //shape: BoxShape.circle,
+                          image: new DecorationImage(
+                            fit: BoxFit.fill,
+                            image: new AssetImage('assets/logo_m3almi2.png')
+                          )
                         )
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 30),
+                        child: Center(
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: error,
+                                  style: TextStyle(
+                                    fontFamily: 'SFUIDisplay',
+                                    color: Colors.red,
+                                    fontSize: 20,
+                                  )
+                                ),
+                              ]
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        child: TextFormField(
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                          validator: (val) => val.isEmpty ? ("Enter an Email")  : null,
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white
+                              )
+                            ),
+                            labelText: 'email',
+                            labelStyle: TextStyle(fontSize: 15,
+                            color: Colors.white)
+                          ),
+                          onChanged: (val) {
+                            setState(() => email = val);
+                          },
+                        ),
+                      ),
+                      TextFormField(
+                        obscureText: true,
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white
+                              )
+                            ),
+                            labelText: 'Password',
+                            labelStyle: TextStyle(fontSize: 15,
+                            color: Colors.white)
+                          ),
+                        validator: (val) => val.length < 6 ? ("Enter an password 6+ characters long")  : null,
+                        onChanged: (val) {
+                          setState(() => password = val);
+                        },
                       )
-                    ),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.person),
-                        labelText: 'User Name',
-                        fillColor: Colors.grey,
-                        filled: true,
-                      ),
-                      validator: (value) => checkUserValue(value) ? "Username already taken" : null,
-                      onChanged: (val) {
-                        setState(() => userName = val);
-                      },
-                    ),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.email),
-                        labelText: 'Email',
-                        fillColor: Colors.grey,
-                        filled: true,
-                      ),
-                      validator: (val) => val.isEmpty ? ("Enter an Email")  : null,
-                      onChanged: (val) {
-                        setState(() => email = val);
-                      },
-                    ),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.phone),
-                        labelText: 'Phone Number',
-                        fillColor: Colors.grey,
-                        filled: true,
-                      ),
-                      validator: (val) => val.length != 10 ? ("Enter a valid number")  : null,
-                      onChanged: (val) {
-                        setState(() => email = val);
-                      },
-                    ),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      key: passKey,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.lock),
-                        labelText: 'Password',
-                        fillColor: Colors.grey,
-                        filled: true,
-                      ),
-                      obscureText: true,
-                      validator: (val) => val.length < 6 ? ("Enter an password 6+ characters long")  : null,
-                      onChanged: (val) {
-                        setState(() => password = val);
-                      },
-                    ),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: 'Confirm Password',
-                        prefixIcon: Icon(Icons.lock),
-                        fillColor: Colors.grey,
-                        filled: true,
-                      ),
-                      obscureText: true,
-                    validator: (confirmation){
-                        var password = passKey.currentState.value;
-                        return  (confirmation == password) ? null : "Confirm Password should match password";
-                      },
-                      onChanged: (val) {
-                        setState(() => confirmPass = val);
-                      },
-                    ),
-                    SizedBox(height: 20.0),
-                    RaisedButton(
-                      color: Colors.blue,
-                      child: Text(
-                        'Sign IN',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          dynamic result = await _auth.signWithEmailAndPssword(email, password);
-                          if (result == null) {
-                            setState(() => error = "this email already existe");
-                          }
-                        }
-                      },
-                    ),
-                    SizedBox(height: 14.0,),
-                    Text(
-                      error,
-                      style: TextStyle(color: Colors.white)
-                    )
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                  padding: EdgeInsets.only(top: 20,bottom: 5),
+                   child: MaterialButton(
+                    onPressed: () async {
+                    },
+                    child: Text('Forgot your password?',
+                      textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontFamily: 'SFUIDisplay',
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white
+                      ),
+                    ),
+                  ),
+                ),
+                ),
+                
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: MaterialButton(
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        dynamic result = await _auth.registerWithEmailAndPssword(email, password); 
+                        if (result == null) {
+                          setState(() => error = "email or password incorrect");
+                        } 
+                      }
+                    },
+                    child: Text('SIGN IN',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'SFUIDisplay',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                      ),
+                    ),
+                    color: Color(0xffff2d55),
+                    elevation: 0,
+                    minWidth: 350,
+                    height: 60,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50)
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: MaterialButton(
+                    onPressed: (){
+                      widget.toggleView();
+                    },
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        //Icon(FontAwesomeIcons.facebookSquare),
+                        Text('Register',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'SFUIDisplay'
+                        ),)
+                      ],
+                    ),
+                    color: Colors.transparent,
+                    elevation: 0,
+                    minWidth: 350,
+                    height: 60,
+                    textColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      side: BorderSide(color: Colors.white)
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-        );
-      }
-    }
-    
-    _doesEmailAlreadyExist(String user) {
+        ),
+      ),
+    );
+  }
 }

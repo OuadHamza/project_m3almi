@@ -1,122 +1,246 @@
 import 'package:auth/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class Register extends StatefulWidget {
+class SignIn extends StatefulWidget {
   final Function toggleView;
-  Register({this.toggleView});
+  SignIn({this.toggleView});
   @override
-  _RegisterState createState() => _RegisterState();
+  _SignInState createState() => _SignInState();
 }
 
-class _RegisterState extends State<Register> {
-
+class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+  final passKey = GlobalKey<FormFieldState>();
 
-  // Text field state
-  String email = "";
-  String password = "";
-  String error = "";
-  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.red[900],
-      appBar: AppBar(
-        backgroundColor: Colors.red[400],
-        elevation: 0.0,
-        title: Text('Sign up'),
-        actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('Sign In'),
-            onPressed: () {
-              widget.toggleView();
-            },
-          )
-        ]
-      ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20.0 , horizontal: 60.0),
-        child: Form(
-          key: _formKey,
-          child: new SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                new Container(
-                  width: 80.0,
-                  height: 80.0,
-                  decoration: new BoxDecoration(
-                    image: new DecorationImage(
-                      fit: BoxFit.fill,
-                      image: new AssetImage('assets/logo_m3almi2.png')
-                    )
-                  )
-                ),
-                SizedBox(height: 20.0),
-                TextFormField(
-                  validator: (val) => val.isEmpty ? ("Enter an Email")  : null,
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.email),
-                      labelText: 'Email',
-                      fillColor: Colors.grey,
-                      filled: true,
-                    ),
-                  onChanged: (val) {
-                    setState(() => email = val);
+  bool _userExist = false;
+  checkUserValue<bool>(String user) {
+    _doesEmailAlreadyExist(user).then((val){
+          if(val){
+            print ("UserName Already Exits");
+            _userExist = val;
+          }
+          else{
+            print ("UserName is Available");
+            _userExist = val;
+          }
+        });
+        return _userExist;
+      }
+    
+      // Text field state
+      String userName = "";
+      String email = "";
+      String phone = "";
+      String password = "";
+      String confirmPass = "";
+      String error = "";
+    
+      @override
+      Widget build(BuildContext context) {
+        return Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/loginBg.png"),
+              fit: BoxFit.cover,
+            )
+          ),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+              title: Text('Register'),
+              actions: <Widget>[
+                FlatButton.icon(
+                  icon: Icon(Icons.person),
+                  label: Text('Sign in'),
+                  onPressed: () {
+                    widget.toggleView();
                   },
-                ),
-                SizedBox(height: 20.0),
-                TextFormField(
-                  obscureText: true,
-                  validator: (val) => val.length < 6 ? ("Enter an password 6+ characters long")  : null,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.lock),
-                    labelText: 'Password',
-                    fillColor: Colors.grey,
-                    filled: true,
-                  ),
-                  onChanged: (val) {
-                    setState(() => password = val);
-                  },
-                ),
-                SizedBox(height: 20.0),
-                Material(
-                  borderRadius: BorderRadius.circular(30.0),
-                  //elevation: 5.0,
-                  child: MaterialButton(
-                    onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        dynamic result = await _auth.registerWithEmailAndPssword(email, password);
-                        if (result == null) {
-                          setState(() => error = "email or password incorrect");
-                        }
-                      }
-                    },
-                    minWidth: 150.0,
-                    height: 50.0,
-                    color: Color(0xFF179CDF),
-                    child: Text(
-                      "REGISTER",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                      ),
-                    ),
-
-                  ),
-                ),
-                SizedBox(height: 14.0,),
-                Text(
-                  error,
-                  style: TextStyle(color: Colors.white)
                 )
               ],
             ),
+            body: Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.transparent,
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: ListView(
+                  children: <Widget>[
+                  //SizedBox(height: 200,),
+                  Form(
+                    key: _formKey,
+                    child: new SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          new Container(
+                            width: 80.0,
+                            height: 80.0,
+                            decoration: new BoxDecoration(
+                            //shape: BoxShape.circle,
+                              image: new DecorationImage(
+                                fit: BoxFit.fill,
+                                image: new AssetImage('assets/logo_m3almi2.png')
+                              )
+                            )
+                          ),
+                          SizedBox(height: 20.0),
+                          TextFormField(
+                            style: TextStyle(
+                            color: Colors.white,
+                            ),
+                            decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white
+                              )
+                            ),
+                            labelText: 'UserName',
+                            labelStyle: TextStyle(fontSize: 15,
+                            color: Colors.white)
+                          ),
+                            validator: (value) => checkUserValue(value) ? "Username already taken" : null,
+                            onChanged: (val) {
+                              setState(() => userName = val);
+                            },
+                          ),
+                          SizedBox(height: 20.0),
+                          TextFormField(
+                            style: TextStyle(
+                            color: Colors.white,
+                            ),
+                            decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.white
+                                )
+                              ),
+                              labelText: 'email',
+                              labelStyle: TextStyle(fontSize: 15,
+                                color: Colors.white
+                              ),
+                             ),
+                            validator: (val) => val.isEmpty ? ("Enter an Email")  : null,
+                            onChanged: (val) {
+                              setState(() => email = val);
+                            },
+                          ),
+                          SizedBox(height: 20.0),
+                          TextFormField(
+                            style: TextStyle(
+                            color: Colors.white,
+                            ),
+                            decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.white
+                                )
+                              ),
+                              labelText: 'telephone',
+                              labelStyle: TextStyle(fontSize: 15,
+                                color: Colors.white
+                              ),
+                             ),
+                            validator: (val) => val.length != 10 ? ("Enter a valid number")  : null,
+                            onChanged: (val) {
+                              setState(() => email = val);
+                            },
+                          ),
+                          SizedBox(height: 20.0),
+                          TextFormField(
+                            key: passKey,
+                           style: TextStyle(
+                            color: Colors.white,
+                            ),
+                            decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.white
+                                )
+                              ),
+                              labelText: 'password',
+                              labelStyle: TextStyle(fontSize: 15,
+                                color: Colors.white
+                              ),
+                            ),
+                            obscureText: true,
+                            validator: (val) => val.length < 6 ? ("Enter an password 6+ characters long")  : null,
+                            onChanged: (val) {
+                              setState(() => password = val);
+                            },
+                          ),
+                          SizedBox(height: 20.0),
+                          TextFormField(
+                            style: TextStyle(
+                            color: Colors.white,
+                            ),
+                            decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.white
+                                )
+                              ),
+                              labelText: 'confirm password',
+                              labelStyle: TextStyle(fontSize: 15,
+                                color: Colors.white
+                              ),
+                             ),
+                            obscureText: true,
+                            validator: (confirmation){
+                              var password = passKey.currentState.value;
+                              return  (confirmation == password) ? null : "Confirm Password should match password";
+                            },
+                            onChanged: (val) {
+                              setState(() => confirmPass = val);
+                            },
+                          ),
+                          SizedBox(height: 20.0),
+                          MaterialButton(
+                            child: Text('ENREGISTRER',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'SFUIDisplay',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white
+                              ),
+                            ),
+                            color: Color(0xffff2d55),
+                            elevation: 0,
+                            minWidth: 350,
+                            height: 60,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)
+                            ),
+                            onPressed: () async {
+                              if (_formKey.currentState.validate()) {
+                                dynamic result = await _auth.signWithEmailAndPssword(email, password);
+                                if (result == null) {
+                                  setState(() => error = "this email already existe");
+                                }
+                              }
+                            },
+                          ),
+                          SizedBox(height: 14.0,),
+                          Text(
+                            error,
+                            style: TextStyle(color: Colors.white)
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ),
           ),
-        ),
-      ),
-    );
-  }
+        );
+      }
+    }
+    
+    _doesEmailAlreadyExist(String user) {
 }
