@@ -158,7 +158,7 @@ class _RegisterState extends State<Register> {
                   child: MaterialButton(
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                      dynamic result = await _auth.signInWithEmailAndPassword(email, password); 
+                      dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                         if (result == null) {
                           setState(() => error = "email or password incorrect");
                         } 

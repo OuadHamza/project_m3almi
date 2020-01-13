@@ -1,5 +1,4 @@
 import 'package:auth/features/m3almi/domaine/entities/user.dart';
-import 'package:auth/features/m3almi/presantation/screens/home/home.dart';
 import 'package:auth/features/m3almi/presantation/screens/home/profileUsers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +11,6 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    print(user);
     //return either home or authenticate widget
     if(user == null){
       return Authenticate();
