@@ -1,4 +1,4 @@
-import 'package:auth/services/auth.dart';
+import 'package:auth/features/m3almi/domaine/usecases/auth.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -13,25 +13,12 @@ class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
   final passKey = GlobalKey<FormFieldState>();
 
-  bool _userExist = false;
-  checkUserValue<bool>(String user) {
-    _doesEmailAlreadyExist(user).then((val){
-          if(val){
-            print ("UserName Already Exits");
-            _userExist = val;
-          }
-          else{
-            print ("UserName is Available");
-            _userExist = val;
-          }
-        });
-        return _userExist;
-      }
-    
       // Text field state
       String userName = "";
       String email = "";
       String phone = "";
+      String adress = "";
+      String photoUrl = "";
       String password = "";
       String confirmPass = "";
       String error = "";
@@ -103,7 +90,7 @@ class _SignInState extends State<SignIn> {
                             labelStyle: TextStyle(fontSize: 15,
                             color: Colors.white)
                           ),
-                            validator: (value) => checkUserValue(value) ? "Username already taken" : null,
+                            validator: (value) =>  value.isEmpty ? ("Enter an Email")  : null,
                             onChanged: (val) {
                               setState(() => userName = val);
                             },
@@ -147,7 +134,7 @@ class _SignInState extends State<SignIn> {
                              ),
                             validator: (val) => val.length != 10 ? ("Enter a valid number")  : null,
                             onChanged: (val) {
-                              setState(() => email = val);
+                              setState(() => phone = val);
                             },
                           ),
                           SizedBox(height: 20.0),
@@ -217,7 +204,7 @@ class _SignInState extends State<SignIn> {
                             ),
                             onPressed: () async {
                               if (_formKey.currentState.validate()) {
-                                dynamic result = await _auth.signWithEmailAndPssword(email, password);
+                                dynamic result = await _auth.registerWithEmailAndPssword(email, password , userName , phone , adress, photoUrl);
                                 if (result == null) {
                                   setState(() => error = "this email already existe");
                                 }
@@ -241,6 +228,3 @@ class _SignInState extends State<SignIn> {
         );
       }
     }
-    
-    _doesEmailAlreadyExist(String user) {
-}

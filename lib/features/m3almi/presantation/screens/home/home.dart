@@ -1,8 +1,10 @@
-import 'package:auth/services/auth.dart';
+import 'package:auth/features/m3almi/domaine/usecases/auth.dart';
 import 'package:flutter/material.dart';
+
 
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
      return Container(
@@ -86,7 +88,7 @@ class Home extends StatelessWidget {
                 child: MaterialButton(
                   onPressed: (){
                   },
-                  child:Text('connected as professionel',
+                  child:Text('connected as employer',
                       style: TextStyle(
                         fontSize: 20,
                         fontFamily: 'SFUIDisplay'

@@ -1,8 +1,9 @@
-import 'package:auth/models/user.dart';
-import 'package:auth/screens/wrapeer.dart';
-import 'package:auth/services/auth.dart';
+import 'package:auth/features/m3almi/domaine/usecases/auth.dart';
+import 'package:auth/features/m3almi/presantation/screens/wrapeer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'features/m3almi/domaine/entities/user.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,4 +1,4 @@
-import 'package:auth/services/auth.dart';
+import 'package:auth/features/m3almi/domaine/usecases/auth.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -158,7 +158,7 @@ class _RegisterState extends State<Register> {
                   child: MaterialButton(
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        dynamic result = await _auth.registerWithEmailAndPssword(email, password); 
+                      dynamic result = await _auth.signInWithEmailAndPassword(email, password); 
                         if (result == null) {
                           setState(() => error = "email or password incorrect");
                         } 

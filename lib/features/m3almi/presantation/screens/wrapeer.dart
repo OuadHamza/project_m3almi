@@ -1,8 +1,11 @@
-import 'package:auth/models/user.dart';
-import 'package:auth/screens/home/home.dart';
+import 'package:auth/features/m3almi/domaine/entities/user.dart';
+import 'package:auth/features/m3almi/presantation/screens/home/home.dart';
+import 'package:auth/features/m3almi/presantation/screens/home/profileUsers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'authenticate/autehnticate.dart';
+
+
 //import 'home/home.dart';
 
 class Wrapper extends StatelessWidget {
@@ -14,7 +17,7 @@ class Wrapper extends StatelessWidget {
     if(user == null){
       return Authenticate();
     }else{
-      return Home();
+      return ProfileUsers();
     }
     
   }
