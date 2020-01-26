@@ -9,11 +9,10 @@ class AuthService {
 
   // create user obj based on FirebaseUser
   User _userFromeFirebase(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+    return user != null ? User(uid: user.uid , email: user.email , phoneNumber: user.phoneNumber) : null;
   }
 
   // auth change user stream
-
   Stream<User> get user{
     return _auth.onAuthStateChanged.map(_userFromeFirebase);
   }
@@ -30,13 +29,11 @@ class AuthService {
   }
 
   //signUp with email and password
-  Future registerWithEmailAndPssword(String email , String password , String userName , String phone , String adress , String photoUrl ) async {
+  Future registerWithEmailAndPssword(String email , String password , String userName , String phone ) async {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
-
-      await DataBaseService().updateUserData(email, userName, phone, adress, photoUrl);
-      
+      await DataBaseService(uid: user.uid).updateUserData(email, userName, phone);
       return _userFromeFirebase(user);
     } catch (e) {
       print(e.toString());

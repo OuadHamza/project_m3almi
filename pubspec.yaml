@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.5.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -27,20 +27,27 @@ dependencies:
   provider: ^3.2.0
   equatable: ^0.4.0
   data_connection_checker: ^0.3.4
+  rxdart: ^0.23.1
+  observable: ^0.22.2
+
+  #firebase image
+  firebase_core: 0.4.0+8
+  firebase_storage: 3.0.4
+
+  image_cropper: 1.0.2
+  image_picker: 0.6.0+17
 
 module:
-    androidX: true
+  androidX: true
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -53,14 +60,10 @@ flutter:
     - assets/logo_m3almi.png
     - assets/logo_m3almi2.png
     - assets/loginBg.png
-
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

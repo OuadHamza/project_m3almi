@@ -9,24 +9,20 @@ class DataBaseService{
 
 
   final CollectionReference userCollection = Firestore.instance.collection('users');
-  Future updateUserData(String email , String userName , String phone , String adress , String photoUrl) async{
+  Future updateUserData(String email , String userName , String phoneNumber ) async{
 
     return await userCollection.document(uid).setData({
       'userName': userName,
-      'phone' : phone,
+      'phoneNumber' : phoneNumber,
       'email' : email,
-      'adress' : adress,
-      'photoUrl' : photoUrl
     });
   }
 
-  UserData _userData(DocumentSnapshot snapshot){
-    return UserData(
-      uid: uid,
-      phone : snapshot.data['phone'],
+  User _userData(DocumentSnapshot snapshot){
+    return User(
+      phoneNumber : snapshot.data['phoneNumber'],
       email : snapshot.data['email'],
-      adress : snapshot.data['adress'],
-      photoUrl : snapshot.data['photoUrl'],
+      userName : snapshot.data['userName'],
     );
   }
 
@@ -34,7 +30,7 @@ class DataBaseService{
     return userCollection.snapshots();
   }
 
-  Stream<UserData> get currentUser{
+  Stream<User> get currentUser{
     return userCollection.document(uid).snapshots().map(_userData);
   }
 }

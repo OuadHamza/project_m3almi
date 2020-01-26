@@ -1,14 +1,14 @@
 import 'package:auth/features/m3almi/domaine/usecases/auth.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleView;
-  SignIn({this.toggleView});
+  Register({this.toggleView});
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   final passKey = GlobalKey<FormFieldState>();
@@ -204,7 +204,7 @@ class _SignInState extends State<SignIn> {
                             ),
                             onPressed: () async {
                               if (_formKey.currentState.validate()) {
-                                dynamic result = await _auth.registerWithEmailAndPssword(email, password , userName , phone , adress, photoUrl);
+                                dynamic result = await _auth.registerWithEmailAndPssword(email, password , userName , phone);
                                 if (result == null) {
                                   setState(() => error = "this email already existe");
                                 }

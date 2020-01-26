@@ -1,4 +1,6 @@
 import 'package:auth/features/m3almi/domaine/usecases/auth.dart';
+import 'package:auth/features/m3almi/presantation/widgets/image_capture.dart';
+import 'package:auth/features/m3almi/presantation/widgets/logo_widgets.dart';
 import 'package:flutter/material.dart';
 
 
@@ -8,17 +10,11 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/loginBg.png"),
-          fit: BoxFit.cover,
-        )
-      ), 
       child : Scaffold(
-        backgroundColor: Colors.transparent,
+        //backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: Text('Home', textAlign: TextAlign.center,),
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.amber,
           elevation: 0.0,
           actions: <Widget>[
             FlatButton.icon(
@@ -30,82 +26,89 @@ class Home extends StatelessWidget {
             )
           ]
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Align(
-                alignment: Alignment.center,
-                child : Container(
-                  width: 150.0,
-                  height: 150.0,
-                  decoration: new BoxDecoration(
-                    image: new DecorationImage(
-                      fit: BoxFit.fill,
-                      image: new AssetImage('assets/logo_m3almi2.png')
-                    )
-                  )
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 50,bottom: 5),
-                child: Center(
-                  child : Text(
-                    'Wellcome To M3almi',
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontFamily: 'SFUIDisplay',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white
+        body:Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: <Color>[
+                Colors.amber[800],
+                Colors.amber[700],
+                Colors.amber[600],
+                Colors.amber[400]
+              ],
+            )
+          ),
+          child : Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                logoWidget(),
+                Padding(
+                  padding: EdgeInsets.only(top: 50,bottom: 5),
+                  child: Center(
+                    child : Text(
+                      'Wellcome To M3almi',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontFamily: 'SFUIDisplay',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 40),
-                child: MaterialButton(
-                  onPressed: (){
-                  },
-                  child:Text('connected as user',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'SFUIDisplay'
-                      ),
-                  ),
-                  color: Colors.transparent,
-                  elevation: 0,
-                  minWidth: 350,
-                  height: 60,
-                  textColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(color: Colors.white)
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: MaterialButton(
-                  onPressed: (){
-                  },
-                  child:Text('connected as employer',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'SFUIDisplay'
-                      ),
-                  ),
-                  color: Colors.transparent,
-                  elevation: 0,
-                  minWidth: 350,
-                  height: 60,
-                  textColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(color: Colors.white)
+                Padding(
+                  padding: EdgeInsets.only(top: 40),
+                  child: MaterialButton(
+                    onPressed: (){
+                    },
+                    child:Text('connected as user',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'SFUIDisplay'
+                        ),
+                    ),
+                    color: Colors.transparent,
+                    elevation: 0,
+                    minWidth: 350,
+                    height: 60,
+                    textColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      side: BorderSide(color: Colors.white)
+                    ),
                   ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: MaterialButton(
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ImageCapture()),
+                      );
+                    
+                    },
+                    child:Text('connected as employer',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'SFUIDisplay'
+                        ),
+                    ),
+                    color: Colors.transparent,
+                    elevation: 0,
+                    minWidth: 350,
+                    height: 60,
+                    textColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      side: BorderSide(color: Colors.white)
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
