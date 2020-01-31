@@ -1,4 +1,4 @@
-import 'package:auth/features/m3almi/presantation/screens/home/home.dart';
+import 'package:auth/features/m3almi/presantation/screens/home/profileUsers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,7 @@ class Wrapper extends StatelessWidget {
     if(user == null){
       return Authenticate();
     }else{
-      return Home();
+      return ProfileUser();
     }
     
   }

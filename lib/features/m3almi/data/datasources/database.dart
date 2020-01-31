@@ -9,12 +9,13 @@ class DataBaseService{
 
 
   final CollectionReference userCollection = Firestore.instance.collection('users');
-  Future updateUserData(String email , String userName , String phoneNumber ) async{
+  Future updateUserData(String email , String userName , String phoneNumber , bool isEmployer ) async{
 
     return await userCollection.document(uid).setData({
       'userName': userName,
       'phoneNumber' : phoneNumber,
       'email' : email,
+      'isEmployer' : isEmployer
     });
   }
 
@@ -23,6 +24,7 @@ class DataBaseService{
       phoneNumber : snapshot.data['phoneNumber'],
       email : snapshot.data['email'],
       userName : snapshot.data['userName'],
+      isEmployer : snapshot.data['isEmployer']
     );
   }
 

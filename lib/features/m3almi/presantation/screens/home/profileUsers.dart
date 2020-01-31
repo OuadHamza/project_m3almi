@@ -1,6 +1,9 @@
 import 'package:auth/features/m3almi/data/datasources/database.dart';
-import 'package:auth/features/m3almi/domaine/entities/user.dart';
 import 'package:auth/features/m3almi/domaine/usecases/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart'; 
+
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +12,7 @@ class ProfileUser extends StatelessWidget {
 
   Widget build(BuildContext context){
     final AuthService _auth = AuthService();
-    final user = Provider.of<User>(context);
+    final user = Provider.of<FirebaseUser>(context);
       return Scaffold(
           appBar: AppBar(
               title: Text('Profile', textAlign: TextAlign.center,),
@@ -81,13 +84,6 @@ class ProfileUser extends StatelessWidget {
           ),
         );
   }
-
-                    
-
-        
-
-
-
-
 }
+
 

@@ -22,6 +22,7 @@ class _RegisterState extends State<Register> {
       String password = "";
       String confirmPass = "";
       String error = "";
+      bool isEmployer = false;
     
       @override
       Widget build(BuildContext context) {
@@ -171,6 +172,7 @@ class _RegisterState extends State<Register> {
                                   color: Colors.white
                                 )
                               ),
+                              
                               labelText: 'confirm password',
                               labelStyle: TextStyle(fontSize: 15,
                                 color: Colors.white
@@ -186,6 +188,18 @@ class _RegisterState extends State<Register> {
                             },
                           ),
                           SizedBox(height: 20.0),
+                          Row(
+                            children: <Widget>[
+                              Checkbox(
+                                value: isEmployer,
+                                onChanged: (val) {
+                              setState(() => isEmployer = val);
+                            },
+                            ),
+                            Text("Register as employer")
+                            ],
+                      
+                          ),
                           MaterialButton(
                             child: Text('ENREGISTRER',
                               style: TextStyle(
@@ -204,7 +218,7 @@ class _RegisterState extends State<Register> {
                             ),
                             onPressed: () async {
                               if (_formKey.currentState.validate()) {
-                                dynamic result = await _auth.registerWithEmailAndPssword(email, password , userName , phone);
+                                dynamic result = await _auth.registerWithEmailAndPssword(email, password , userName , phone , isEmployer);
                                 if (result == null) {
                                   setState(() => error = "this email already existe");
                                 }

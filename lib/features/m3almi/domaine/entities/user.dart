@@ -8,6 +8,7 @@ class User extends Equatable {
   final String phoneNumber;
   final String adress;
   final String photoUrl;
+  final bool isEmployer;
 
   User({
     this.uid,
@@ -16,7 +17,8 @@ class User extends Equatable {
     this.password ,
     this.phoneNumber ,
     this.adress ,
-    this.photoUrl  });
+    this.photoUrl,
+    this.isEmployer });
 }
 
 
