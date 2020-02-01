@@ -18,7 +18,8 @@ class Home extends StatelessWidget {
           elevation: 0.0,
           actions: <Widget>[
             FlatButton.icon(
-              icon: Icon(Icons.person),
+              icon: Icon(
+                Icons.person),
               label: Text('logout'),
               onPressed: () async {
                 await _auth.signOut();
@@ -26,7 +27,7 @@ class Home extends StatelessWidget {
             )
           ]
         ),
-        body:Container(
+                body:Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topRight,
@@ -36,81 +37,81 @@ class Home extends StatelessWidget {
                 Colors.amber[700],
                 Colors.amber[600],
                 Colors.amber[400]
-              ],
-            )
-          ),
+          ],
+                  )
+                ),
           child : Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 logoWidget(),
-                Padding(
-                  padding: EdgeInsets.only(top: 50,bottom: 5),
-                  child: Center(
-                    child : Text(
-                      'Wellcome To M3almi',
+              Padding(
+                padding: EdgeInsets.only(top: 50,bottom: 5),
+                child: Center(
+                  child : Text(
+                    'Welcome To M3almi',
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontFamily: 'SFUIDisplay',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 40),
+                child: MaterialButton(
+                  onPressed: (){
+                  },
+                  child:Text('connected as user',
                       style: TextStyle(
-                        fontSize: 40,
-                        fontFamily: 'SFUIDisplay',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
+                        fontSize: 20,
+                        fontFamily: 'SFUIDisplay'
                       ),
-                    ),
+                  ),
+                  color: Colors.transparent,
+                  elevation: 0,
+                  minWidth: 350,
+                  height: 60,
+                  textColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                    side: BorderSide(color: Colors.white)
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 40),
-                  child: MaterialButton(
-                    onPressed: (){
-                    },
-                    child:Text('connected as user',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'SFUIDisplay'
-                        ),
-                    ),
-                    color: Colors.transparent,
-                    elevation: 0,
-                    minWidth: 350,
-                    height: 60,
-                    textColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
-                      side: BorderSide(color: Colors.white)
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: MaterialButton(
-                    onPressed: (){
-                      Navigator.push(
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: MaterialButton(
+                  onPressed: (){
+                                          Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => ImageCapture()),
                       );
                     
-                    },
-                    child:Text('connected as employer',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'SFUIDisplay'
-                        ),
-                    ),
-                    color: Colors.transparent,
-                    elevation: 0,
-                    minWidth: 350,
-                    height: 60,
-                    textColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
-                      side: BorderSide(color: Colors.white)
-                    ),
+                  },
+                  child:Text('connected as employer',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'SFUIDisplay'
+                      ),
+                  ),
+                  color: Colors.transparent,
+                  elevation: 0,
+                  minWidth: 350,
+                  height: 60,
+                  textColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                    side: BorderSide(color: Colors.white)
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
       ),
     );
   }

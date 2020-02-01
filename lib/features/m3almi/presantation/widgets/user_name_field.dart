@@ -19,7 +19,7 @@ Widget userNameFiled( BuildContext context) {
                 )
               ),
               errorText: snapshot.error,
-              labelText: 'User Name',
+              labelText: 'User name',
               labelStyle: TextStyle(
                 fontSize: 15,
                 color: Colors.white

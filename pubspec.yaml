@@ -29,6 +29,8 @@ dependencies:
   data_connection_checker: ^0.3.4
   rxdart: ^0.23.1
   observable: ^0.22.2
+  flutter_spinkit: "^2.1.0"
+  ff_navigation_bar: ^0.0.1
 
   #firebase image
   firebase_core: 0.4.0+8
